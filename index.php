@@ -59,13 +59,12 @@ if(isset($_POST['submit'])) {
     <h1>Login</h1>
 </div>
 
-//Input form
 <form method="post" action="index.php" enctype="multipart/form-data">
     <div class="form-group">
         <label>Name</label>
         <input type="text" name="name" class="form-control">
     </div>
-    <input type="submit" class="btn btn-primary" id="btnHams" name="btnHams" value="Submit">
+    <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Submit">
 </form>
 
 </body>
