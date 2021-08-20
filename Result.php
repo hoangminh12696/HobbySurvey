@@ -86,7 +86,6 @@ $query_builder = TRUE;*/
     </tr>
     <tr>
         <td>Dog</td>
-        //Highlight table cell and display count result
         <td id="11" style="background: <?php echo $cell11 ?>"><?php $statement->execute(['chocolate', 'dog']);
         echo $statement->fetchColumn();?></td>
         <td id="12" style="background: <?php echo $cell12 ?>"><?php $statement->execute(['banana', 'dog']);
