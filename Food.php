@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $food = $_SESSION['food'];
+    $food = @$_SESSION['food'];
     $choco = 'black';
     $banana = 'black';
     $chicken = 'black';
@@ -58,7 +58,6 @@
 
 
 <div id="grid-layout-33">
-    //Item 1
     <div class="card" style="width: 18rem; border-color: <?php echo $choco ?>">
         <img class="card-img-top" src="images/chocolate.jpg" alt="Card image cap">
         <div class="card-body">
@@ -71,7 +70,6 @@
         </div>
     </div>
 
-    //Item 2
     <div class="card" style="width: 18rem; border-color: <?php echo $banana ?>">
         <img class="card-img-top" src="images/banana.jpg" alt="Card image cap">
         <div class="card-body">
@@ -84,7 +82,6 @@
         </div>
     </div>
 
-    //Item 3
     <div class="card" style="width: 18rem; border-color: <?php echo $chicken?>">
         <img class="card-img-top" src="images/chicken.jpg" alt="Card image cap">
         <div class="card-body">
