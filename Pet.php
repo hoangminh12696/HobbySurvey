@@ -93,7 +93,6 @@ $query_builder = TRUE;*/
 </div>
 
 <div id="grid-layout-33">
-    //Item 1
     <div class="card" style="width: 18rem; border-color: <?php echo $dog ?>">
         <img class="card-img-top" src="images/dog.jpg" alt="Card image cap">
         <div class="card-body">
@@ -106,7 +105,6 @@ $query_builder = TRUE;*/
         </div>
     </div>
 
-    //Item 2
     <div class="card" style="width: 18rem; border-color: <?php echo $cat ?>">
         <img class="card-img-top" src="images/cat.jpg" alt="Card image cap">
         <div class="card-body">
@@ -119,7 +117,6 @@ $query_builder = TRUE;*/
         </div>
     </div>
 
-    //Item 3
     <div class="card" style="width: 18rem; border-color: <?php echo $hams ?>">
         <img class="card-img-top" src="images/hamster.jpg" alt="Card image cap">
         <div class="card-body">
@@ -132,7 +129,7 @@ $query_builder = TRUE;*/
         </div>
     </div>
 </div>
-    //Return button
+
 <div id="wrapper">
     <form method="post" action="Pet.php">
         <input type="submit" class="btn btn-primary" id="btnBack" name="btnBack" value="Back">
