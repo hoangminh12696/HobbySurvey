@@ -1,0 +1,173 @@
+<html>
+<head>
+<title>Pet.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #9876aa;}
+.s4 { color: #6a8759;}
+.s5 { color: #808080;}
+.s6 { color: #6897bb;}
+.s7 { color: #a9b7c6;}
+.s8 { color: #e8bf6a;}
+.s9 { color: #bababa;}
+.s10 { color: #a5c261;}
+.s11 { color: #6897bb;}
+.s12 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Pet.php</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?php</span>
+    <span class="s2">session_start</span><span class="s1">()</span><span class="s0">;</span>
+    <span class="s3">$pet </span><span class="s1">= </span><span class="s4">''</span><span class="s0">;</span>
+    <span class="s3">$dog </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$cat </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$hams</span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$name </span><span class="s1">= </span><span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'name'</span><span class="s1">]</span><span class="s0">;</span>
+    <span class="s3">$food </span><span class="s1">= </span><span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'food'</span><span class="s1">]</span><span class="s0">;</span>
+
+    <span class="s5">//Initiate database connection</span>
+    <span class="s5">//$pdo = new PDO('mysql:host=localhost;port=3306;dbname=hobbysurvey', 'root', '');</span>
+    <span class="s5">//$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</span>
+<span class="s5">//Get Heroku ClearDB connection information</span>
+<span class="s5">/*$cleardb_url = parse_url(getenv(&quot;CLEARDB_DATABASE_URL&quot;)); 
+$cleardb_server = $cleardb_url[&quot;host&quot;]; 
+$cleardb_username = $cleardb_url[&quot;user&quot;]; 
+$cleardb_password = $cleardb_url[&quot;pass&quot;]; 
+$cleardb_db = substr($cleardb_url[&quot;path&quot;],1); 
+$active_group = 'default'; 
+$query_builder = TRUE;*/</span>
+    <span class="s5">// Connect to DB</span>
+    <span class="s3">$pdo </span><span class="s1">= </span><span class="s0">new </span><span class="s2">PDO</span><span class="s1">(</span><span class="s4">'mysql:host=remotemysql.com;port=3306;dbname=s8AWHZjN4w'</span><span class="s0">, </span><span class="s4">'s8AWHZjN4w'</span><span class="s0">, </span><span class="s4">'InRSUPpTPt'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">setAttribute</span><span class="s1">(</span><span class="s2">PDO</span><span class="s1">::</span><span class="s2">ATTR_ERRMODE</span><span class="s0">, </span><span class="s2">PDO</span><span class="s1">::</span><span class="s2">ERRMODE_EXCEPTION</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s5">//Check user selection</span>
+    <span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnDog'</span><span class="s1">])) {</span>
+        <span class="s3">$pet </span><span class="s1">= </span><span class="s4">'dog'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'pet'</span><span class="s1">] = </span><span class="s3">$pet</span><span class="s0">;</span>
+        <span class="s5">//Check if name exist or not</span>
+        <span class="s3">$check </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;SELECT COUNT(*) FROM user WHERE name = :name&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">bindValue</span><span class="s1">(</span><span class="s4">':name'</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s3">$rows </span><span class="s1">= </span><span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">fetchColumn</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s5">//Insert new user to database if not exist</span>
+        <span class="s0">if</span><span class="s1">(</span><span class="s3">$rows</span><span class="s1">==</span><span class="s6">0</span><span class="s1">) {</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;INSERT INTO user (name, food, pet) VALUES (?, ?, ?)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$name</span><span class="s0">, </span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s5">//Update user data if exist</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;UPDATE user SET food=?, pet=? WHERE name=?&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Result.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span><span class="s0">elseif </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnCat'</span><span class="s1">])) {</span>
+        <span class="s3">$pet </span><span class="s1">= </span><span class="s4">'cat'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'pet'</span><span class="s1">] = </span><span class="s3">$pet</span><span class="s0">;</span>
+        <span class="s3">$check </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;SELECT COUNT(*) FROM user WHERE name = :name&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">bindValue</span><span class="s1">(</span><span class="s4">':name'</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s3">$rows </span><span class="s1">= </span><span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">fetchColumn</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(</span><span class="s3">$rows</span><span class="s1">==</span><span class="s6">0</span><span class="s1">) {</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;INSERT INTO user (name, food, pet) VALUES (?, ?, ?)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$name</span><span class="s0">, </span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;UPDATE user SET food=?, pet=? WHERE name=?&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Result.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span><span class="s0">elseif </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnHams'</span><span class="s1">])) {</span>
+        <span class="s3">$pet </span><span class="s1">= </span><span class="s4">'hamster'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'pet'</span><span class="s1">] = </span><span class="s3">$pet</span><span class="s0">;</span>
+        <span class="s3">$check </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;SELECT COUNT(*) FROM user WHERE name = :name&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">bindValue</span><span class="s1">(</span><span class="s4">':name'</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s3">$rows </span><span class="s1">= </span><span class="s3">$check</span><span class="s1">-&gt;</span><span class="s2">fetchColumn</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(</span><span class="s3">$rows</span><span class="s1">==</span><span class="s6">0</span><span class="s1">) {</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;INSERT INTO user (name, food, pet) VALUES (?, ?, ?)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$name</span><span class="s0">, </span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s3">$statement </span><span class="s1">= </span><span class="s3">$pdo</span><span class="s1">-&gt;</span><span class="s2">prepare</span><span class="s1">(</span><span class="s4">&quot;UPDATE user SET food=?, pet=? WHERE name=?&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s3">$statement</span><span class="s1">-&gt;</span><span class="s2">execute</span><span class="s1">([</span><span class="s3">$food</span><span class="s0">, </span><span class="s3">$pet</span><span class="s0">, </span><span class="s3">$name</span><span class="s1">])</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Result.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span><span class="s0">elseif </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnBack'</span><span class="s1">])) {</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Food.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+<span class="s0">?&gt;</span>
+
+<span class="s8">&lt;!DOCTYPE </span><span class="s9">html</span><span class="s8">&gt;</span>
+<span class="s8">&lt;html </span><span class="s9">lang</span><span class="s10">=&quot;en&quot;</span><span class="s8">&gt;</span>
+<span class="s8">&lt;head&gt;</span>
+    <span class="s8">&lt;meta </span><span class="s9">charset</span><span class="s10">=&quot;UTF-8&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;title&gt;</span><span class="s7">Hobby Survey</span><span class="s8">&lt;/title&gt;</span>
+    <span class="s8">&lt;link </span><span class="s9">rel</span><span class="s10">=&quot;stylesheet&quot; </span><span class="s9">href</span><span class="s10">=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot; </span><span class="s9">integrity</span><span class="s10">=&quot;sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T&quot; </span><span class="s9">crossorigin</span><span class="s10">=&quot;anonymous&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;link </span><span class="s9">rel</span><span class="s10">=&quot;stylesheet&quot; </span><span class="s9">href</span><span class="s10">=&quot;Survey.css&quot;</span><span class="s8">&gt;</span>
+<span class="s8">&lt;/head&gt;</span>
+<span class="s8">&lt;body&gt;</span>
+<span class="s8">&lt;div </span><span class="s9">id</span><span class="s10">=&quot;introduction&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;h2&gt;</span><span class="s7">Choose your favourite pet</span><span class="s8">&lt;/h2&gt;</span>
+<span class="s8">&lt;/div&gt;</span>
+<span class="s8">&lt;div </span><span class="s9">id</span><span class="s10">=&quot;userwc&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;h4&gt;</span><span class="s7">Welcome </span><span class="s0">&lt;?php echo </span><span class="s3">$name </span><span class="s0">?&gt;</span><span class="s7">!</span><span class="s8">&lt;/h4&gt;</span>
+<span class="s8">&lt;/div&gt;</span>
+
+<span class="s8">&lt;div </span><span class="s9">id</span><span class="s10">=&quot;grid-layout-33&quot;</span><span class="s8">&gt;</span>
+    <span class="s7">//Item 1</span>
+    <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card&quot; </span><span class="s9">style</span><span class="s10">=&quot;</span><span class="s9">width</span><span class="s7">: </span><span class="s11">18</span><span class="s10">rem</span><span class="s12">; </span><span class="s9">border-color</span><span class="s7">: </span><span class="s0">&lt;?php echo </span><span class="s3">$dog </span><span class="s0">?&gt;</span><span class="s10">&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;img </span><span class="s9">class</span><span class="s10">=&quot;card-img-top&quot; </span><span class="s9">src</span><span class="s10">=&quot;images/dog.jpg&quot; </span><span class="s9">alt</span><span class="s10">=&quot;Card image cap&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card-body&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;h5 </span><span class="s9">class</span><span class="s10">=&quot;card-title&quot;</span><span class="s8">&gt;</span><span class="s7">Dog</span><span class="s8">&lt;/h5&gt;</span>
+            <span class="s8">&lt;p </span><span class="s9">class</span><span class="s10">=&quot;card-text&quot;</span><span class="s8">&gt;</span><span class="s7">Some quick example text to build on the card title and make up the bulk of the card's</span>
+                <span class="s7">content.</span><span class="s8">&lt;/p&gt;</span>
+            <span class="s8">&lt;form </span><span class="s9">method</span><span class="s10">=&quot;post&quot; </span><span class="s9">action</span><span class="s10">=&quot;Pet.php&quot;</span><span class="s8">&gt;</span>
+                <span class="s8">&lt;input </span><span class="s9">type</span><span class="s10">=&quot;submit&quot; </span><span class="s9">class</span><span class="s10">=&quot;btn btn-primary&quot; </span><span class="s9">id</span><span class="s10">=&quot;btnDog&quot; </span><span class="s9">name</span><span class="s10">=&quot;btnDog&quot; </span><span class="s9">value</span><span class="s10">=&quot;Select&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;/form&gt;</span>
+        <span class="s8">&lt;/div&gt;</span>
+    <span class="s8">&lt;/div&gt;</span>
+
+    <span class="s7">//Item 2</span>
+    <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card&quot; </span><span class="s9">style</span><span class="s10">=&quot;</span><span class="s9">width</span><span class="s7">: </span><span class="s11">18</span><span class="s10">rem</span><span class="s12">; </span><span class="s9">border-color</span><span class="s7">: </span><span class="s0">&lt;?php echo </span><span class="s3">$cat </span><span class="s0">?&gt;</span><span class="s10">&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;img </span><span class="s9">class</span><span class="s10">=&quot;card-img-top&quot; </span><span class="s9">src</span><span class="s10">=&quot;images/cat.jpg&quot; </span><span class="s9">alt</span><span class="s10">=&quot;Card image cap&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card-body&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;h5 </span><span class="s9">class</span><span class="s10">=&quot;card-title&quot;</span><span class="s8">&gt;</span><span class="s7">Cat</span><span class="s8">&lt;/h5&gt;</span>
+            <span class="s8">&lt;p </span><span class="s9">class</span><span class="s10">=&quot;card-text&quot;</span><span class="s8">&gt;</span><span class="s7">Some quick example text to build on the card title and make up the bulk of the card's</span>
+                <span class="s7">content.</span><span class="s8">&lt;/p&gt;</span>
+            <span class="s8">&lt;form </span><span class="s9">method</span><span class="s10">=&quot;post&quot; </span><span class="s9">action</span><span class="s10">=&quot;Pet.php&quot;</span><span class="s8">&gt;</span>
+                <span class="s8">&lt;input </span><span class="s9">type</span><span class="s10">=&quot;submit&quot; </span><span class="s9">class</span><span class="s10">=&quot;btn btn-primary&quot; </span><span class="s9">id</span><span class="s10">=&quot;btnCat&quot; </span><span class="s9">name</span><span class="s10">=&quot;btnCat&quot; </span><span class="s9">value</span><span class="s10">=&quot;Select&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;/form&gt;</span>
+        <span class="s8">&lt;/div&gt;</span>
+    <span class="s8">&lt;/div&gt;</span>
+
+    <span class="s7">//Item 3</span>
+    <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card&quot; </span><span class="s9">style</span><span class="s10">=&quot;</span><span class="s9">width</span><span class="s7">: </span><span class="s11">18</span><span class="s10">rem</span><span class="s12">; </span><span class="s9">border-color</span><span class="s7">: </span><span class="s0">&lt;?php echo </span><span class="s3">$hams </span><span class="s0">?&gt;</span><span class="s10">&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;img </span><span class="s9">class</span><span class="s10">=&quot;card-img-top&quot; </span><span class="s9">src</span><span class="s10">=&quot;images/hamster.jpg&quot; </span><span class="s9">alt</span><span class="s10">=&quot;Card image cap&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;div </span><span class="s9">class</span><span class="s10">=&quot;card-body&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;h5 </span><span class="s9">class</span><span class="s10">=&quot;card-title&quot;</span><span class="s8">&gt;</span><span class="s7">Hamster</span><span class="s8">&lt;/h5&gt;</span>
+            <span class="s8">&lt;p </span><span class="s9">class</span><span class="s10">=&quot;card-text&quot;</span><span class="s8">&gt;</span><span class="s7">Some quick example text to build on the card title and make up the bulk of the</span>
+                <span class="s7">card's content.</span><span class="s8">&lt;/p&gt;</span>
+            <span class="s8">&lt;form </span><span class="s9">method</span><span class="s10">=&quot;post&quot; </span><span class="s9">action</span><span class="s10">=&quot;Pet.php&quot;</span><span class="s8">&gt;</span>
+                <span class="s8">&lt;input </span><span class="s9">type</span><span class="s10">=&quot;submit&quot; </span><span class="s9">class</span><span class="s10">=&quot;btn btn-primary&quot; </span><span class="s9">id</span><span class="s10">=&quot;btnHams&quot; </span><span class="s9">name</span><span class="s10">=&quot;btnHams&quot; </span><span class="s9">value</span><span class="s10">=&quot;Select&quot;</span><span class="s8">&gt;</span>
+            <span class="s8">&lt;/form&gt;</span>
+        <span class="s8">&lt;/div&gt;</span>
+    <span class="s8">&lt;/div&gt;</span>
+<span class="s8">&lt;/div&gt;</span>
+    <span class="s7">//Return button</span>
+<span class="s8">&lt;div </span><span class="s9">id</span><span class="s10">=&quot;wrapper&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;form </span><span class="s9">method</span><span class="s10">=&quot;post&quot; </span><span class="s9">action</span><span class="s10">=&quot;Pet.php&quot;</span><span class="s8">&gt;</span>
+        <span class="s8">&lt;input </span><span class="s9">type</span><span class="s10">=&quot;submit&quot; </span><span class="s9">class</span><span class="s10">=&quot;btn btn-primary&quot; </span><span class="s9">id</span><span class="s10">=&quot;btnBack&quot; </span><span class="s9">name</span><span class="s10">=&quot;btnBack&quot; </span><span class="s9">value</span><span class="s10">=&quot;Back&quot;</span><span class="s8">&gt;</span>
+    <span class="s8">&lt;/form&gt;</span>
+<span class="s8">&lt;/div&gt;</span>
+
+
+<span class="s8">&lt;/body&gt;</span>
+<span class="s8">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>Food.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #9876aa;}
+.s4 { color: #6a8759;}
+.s5 { color: #808080;}
+.s6 { color: #a9b7c6;}
+.s7 { color: #e8bf6a;}
+.s8 { color: #bababa;}
+.s9 { color: #a5c261;}
+.s10 { color: #6897bb;}
+.s11 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Food.php</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?php</span>
+    <span class="s2">session_start</span><span class="s1">()</span><span class="s0">;</span>
+    <span class="s3">$food </span><span class="s1">= </span><span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'food'</span><span class="s1">]</span><span class="s0">;</span>
+    <span class="s3">$choco </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$banana </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$chicken </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+    <span class="s3">$name </span><span class="s1">= </span><span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'name'</span><span class="s1">]</span><span class="s0">;</span>
+
+    <span class="s5">//Check user selection</span>
+    <span class="s0">if</span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnChoco'</span><span class="s1">])) {</span>
+        <span class="s3">$food </span><span class="s1">= </span><span class="s4">'chocolate'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'food'</span><span class="s1">] = </span><span class="s3">$food</span><span class="s0">;</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Pet.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s0">elseif </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnBanana'</span><span class="s1">])) {</span>
+        <span class="s3">$food </span><span class="s1">= </span><span class="s4">'banana'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'food'</span><span class="s1">] = </span><span class="s3">$food</span><span class="s0">;</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Pet.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s0">elseif </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s3">$_POST</span><span class="s1">[</span><span class="s4">'btnChick'</span><span class="s1">])) {</span>
+        <span class="s3">$food </span><span class="s1">= </span><span class="s4">'chicken'</span><span class="s0">;</span>
+        <span class="s3">$_SESSION</span><span class="s1">[</span><span class="s4">'food'</span><span class="s1">] = </span><span class="s3">$food</span><span class="s0">;</span>
+        <span class="s2">header</span><span class="s1">(</span><span class="s4">'Location: Pet.php'</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s5">//Check user selection to highlight item</span>
+    <span class="s0">switch </span><span class="s1">(</span><span class="s3">$food</span><span class="s1">){</span>
+        <span class="s0">case </span><span class="s4">'chocolate'</span><span class="s1">:</span>
+            <span class="s3">$choco </span><span class="s1">= </span><span class="s4">'red'</span><span class="s0">;</span>
+            <span class="s0">break;</span>
+        <span class="s0">case </span><span class="s4">'banana'</span><span class="s1">:</span>
+            <span class="s3">$banana </span><span class="s1">= </span><span class="s4">'red'</span><span class="s0">;</span>
+            <span class="s0">break;</span>
+        <span class="s0">case </span><span class="s4">'chicken'</span><span class="s1">:</span>
+            <span class="s3">$chicken </span><span class="s1">= </span><span class="s4">'red'</span><span class="s0">;</span>
+            <span class="s0">break;</span>
+        <span class="s0">default</span><span class="s1">:</span>
+            <span class="s3">$choco </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+            <span class="s3">$banana </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+            <span class="s3">$chicken </span><span class="s1">= </span><span class="s4">'black'</span><span class="s0">;</span>
+            <span class="s0">break;</span>
+    <span class="s1">}</span>
+<span class="s0">?&gt;</span>
+
+<span class="s7">&lt;!DOCTYPE </span><span class="s8">html</span><span class="s7">&gt;</span>
+<span class="s7">&lt;html </span><span class="s8">lang</span><span class="s9">=&quot;en&quot;</span><span class="s7">&gt;</span>
+<span class="s7">&lt;head&gt;</span>
+    <span class="s7">&lt;meta </span><span class="s8">charset</span><span class="s9">=&quot;UTF-8&quot;</span><span class="s7">&gt;</span>
+    <span class="s7">&lt;title&gt;</span><span class="s6">Hobby Survey</span><span class="s7">&lt;/title&gt;</span>
+    <span class="s7">&lt;link </span><span class="s8">rel</span><span class="s9">=&quot;stylesheet&quot; </span><span class="s8">href</span><span class="s9">=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot; </span><span class="s8">integrity</span><span class="s9">=&quot;sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T&quot; </span><span class="s8">crossorigin</span><span class="s9">=&quot;anonymous&quot;</span><span class="s7">&gt;</span>
+    <span class="s7">&lt;link </span><span class="s8">rel</span><span class="s9">=&quot;stylesheet&quot; </span><span class="s8">href</span><span class="s9">=&quot;Survey.css&quot;</span><span class="s7">&gt;</span>
+<span class="s7">&lt;/head&gt;</span>
+<span class="s7">&lt;body&gt;</span>
+<span class="s7">&lt;div </span><span class="s8">id</span><span class="s9">=&quot;introduction&quot;</span><span class="s7">&gt;</span>
+    <span class="s7">&lt;h2&gt;</span><span class="s6">Choose your favourite food</span><span class="s7">&lt;/h2&gt;</span>
+<span class="s7">&lt;/div&gt;</span>
+<span class="s7">&lt;div </span><span class="s8">id</span><span class="s9">=&quot;userwc&quot;</span><span class="s7">&gt;</span>
+    <span class="s7">&lt;h4&gt;</span><span class="s6">Welcome </span><span class="s0">&lt;?php echo </span><span class="s3">$name </span><span class="s0">?&gt;</span><span class="s6">!</span><span class="s7">&lt;/h4&gt;</span>
+<span class="s7">&lt;/div&gt;</span>
+
+
+<span class="s7">&lt;div </span><span class="s8">id</span><span class="s9">=&quot;grid-layout-33&quot;</span><span class="s7">&gt;</span>
+    <span class="s6">//Item 1</span>
+    <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card&quot; </span><span class="s8">style</span><span class="s9">=&quot;</span><span class="s8">width</span><span class="s6">: </span><span class="s10">18</span><span class="s9">rem</span><span class="s11">; </span><span class="s8">border-color</span><span class="s6">: </span><span class="s0">&lt;?php echo </span><span class="s3">$choco </span><span class="s0">?&gt;</span><span class="s9">&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;img </span><span class="s8">class</span><span class="s9">=&quot;card-img-top&quot; </span><span class="s8">src</span><span class="s9">=&quot;images/chocolate.jpg&quot; </span><span class="s8">alt</span><span class="s9">=&quot;Card image cap&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card-body&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;h5 </span><span class="s8">class</span><span class="s9">=&quot;card-title&quot;</span><span class="s7">&gt;</span><span class="s6">Chocolate</span><span class="s7">&lt;/h5&gt;</span>
+            <span class="s7">&lt;p </span><span class="s8">class</span><span class="s9">=&quot;card-text&quot;</span><span class="s7">&gt;</span><span class="s6">Some quick example text to build on the card title and make up the bulk of the card's</span>
+                <span class="s6">content.</span><span class="s7">&lt;/p&gt;</span>
+            <span class="s7">&lt;form </span><span class="s8">method</span><span class="s9">=&quot;post&quot; </span><span class="s8">action</span><span class="s9">=&quot;Food.php&quot;</span><span class="s7">&gt;</span>
+                <span class="s7">&lt;input </span><span class="s8">type</span><span class="s9">=&quot;submit&quot; </span><span class="s8">class</span><span class="s9">=&quot;btn btn-primary&quot; </span><span class="s8">id</span><span class="s9">=&quot;btnChoco&quot; </span><span class="s8">name</span><span class="s9">=&quot;btnChoco&quot; </span><span class="s8">value</span><span class="s9">=&quot;Select&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;/form&gt;</span>
+        <span class="s7">&lt;/div&gt;</span>
+    <span class="s7">&lt;/div&gt;</span>
+
+    <span class="s6">//Item 2</span>
+    <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card&quot; </span><span class="s8">style</span><span class="s9">=&quot;</span><span class="s8">width</span><span class="s6">: </span><span class="s10">18</span><span class="s9">rem</span><span class="s11">; </span><span class="s8">border-color</span><span class="s6">: </span><span class="s0">&lt;?php echo </span><span class="s3">$banana </span><span class="s0">?&gt;</span><span class="s9">&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;img </span><span class="s8">class</span><span class="s9">=&quot;card-img-top&quot; </span><span class="s8">src</span><span class="s9">=&quot;images/banana.jpg&quot; </span><span class="s8">alt</span><span class="s9">=&quot;Card image cap&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card-body&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;h5 </span><span class="s8">class</span><span class="s9">=&quot;card-title&quot;</span><span class="s7">&gt;</span><span class="s6">Banana</span><span class="s7">&lt;/h5&gt;</span>
+            <span class="s7">&lt;p </span><span class="s8">class</span><span class="s9">=&quot;card-text&quot;</span><span class="s7">&gt;</span><span class="s6">Some quick example text to build on the card title and make up the bulk of the card's</span>
+                <span class="s6">content.</span><span class="s7">&lt;/p&gt;</span>
+            <span class="s7">&lt;form </span><span class="s8">method</span><span class="s9">=&quot;post&quot; </span><span class="s8">action</span><span class="s9">=&quot;Food.php&quot;</span><span class="s7">&gt;</span>
+                <span class="s7">&lt;input </span><span class="s8">type</span><span class="s9">=&quot;submit&quot; </span><span class="s8">class</span><span class="s9">=&quot;btn btn-primary&quot; </span><span class="s8">id</span><span class="s9">=&quot;btnBanana&quot; </span><span class="s8">name</span><span class="s9">=&quot;btnBanana&quot; </span><span class="s8">value</span><span class="s9">=&quot;Select&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;/form&gt;</span>
+        <span class="s7">&lt;/div&gt;</span>
+    <span class="s7">&lt;/div&gt;</span>
+
+    <span class="s6">//Item 3</span>
+    <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card&quot; </span><span class="s8">style</span><span class="s9">=&quot;</span><span class="s8">width</span><span class="s6">: </span><span class="s10">18</span><span class="s9">rem</span><span class="s11">; </span><span class="s8">border-color</span><span class="s6">: </span><span class="s0">&lt;?php echo </span><span class="s3">$chicken</span><span class="s0">?&gt;</span><span class="s9">&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;img </span><span class="s8">class</span><span class="s9">=&quot;card-img-top&quot; </span><span class="s8">src</span><span class="s9">=&quot;images/chicken.jpg&quot; </span><span class="s8">alt</span><span class="s9">=&quot;Card image cap&quot;</span><span class="s7">&gt;</span>
+        <span class="s7">&lt;div </span><span class="s8">class</span><span class="s9">=&quot;card-body&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;h5 </span><span class="s8">class</span><span class="s9">=&quot;card-title&quot;</span><span class="s7">&gt;</span><span class="s6">Fried Chicken</span><span class="s7">&lt;/h5&gt;</span>
+            <span class="s7">&lt;p </span><span class="s8">class</span><span class="s9">=&quot;card-text&quot;</span><span class="s7">&gt;</span><span class="s6">Some quick example text to build on the card title and make up the bulk of the</span>
+                <span class="s6">card's content.</span><span class="s7">&lt;/p&gt;</span>
+            <span class="s7">&lt;form </span><span class="s8">method</span><span class="s9">=&quot;post&quot; </span><span class="s8">action</span><span class="s9">=&quot;Food.php&quot;</span><span class="s7">&gt;</span>
+                <span class="s7">&lt;input </span><span class="s8">type</span><span class="s9">=&quot;submit&quot; </span><span class="s8">class</span><span class="s9">=&quot;btn btn-primary&quot; </span><span class="s8">id</span><span class="s9">=&quot;btnChick&quot; </span><span class="s8">name</span><span class="s9">=&quot;btnChick&quot; </span><span class="s8">value</span><span class="s9">=&quot;Select&quot;</span><span class="s7">&gt;</span>
+            <span class="s7">&lt;/form&gt;</span>
+        <span class="s7">&lt;/div&gt;</span>
+    <span class="s7">&lt;/div&gt;</span>
+<span class="s7">&lt;/div&gt;</span>
+<span class="s7">&lt;/body&gt;</span>
+<span class="s7">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

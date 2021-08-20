@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/Test",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Hoang Minh",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "9.5.8"
+  }
+}

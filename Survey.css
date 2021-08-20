@@ -1,0 +1,64 @@
+.card {
+    margin-left: auto;
+    margin-right: auto;
+    border: thick solid;
+}
+
+table,th, td {
+    border-collapse: collapse;
+    border: 1px solid #dddddd;
+    font-weight: bold;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+td {
+    padding: 12px 15px;
+}
+
+label {
+    float: left;
+}
+
+.btn-primary {
+
+}
+
+.card-img-top {
+    height: 180px;
+}
+
+.form-group {
+
+}
+
+
+
+#introduction {
+    margin: 80px auto 30px auto;
+    text-align: center;
+}
+
+#grid-layout-33 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 3em;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#wrapper {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#userwc {
+    text-align: right;
+    margin: 30px 200px 30px auto
+}
